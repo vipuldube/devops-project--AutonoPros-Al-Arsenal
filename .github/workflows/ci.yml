@@ -32,8 +32,11 @@ jobs:
     - name: Run Basic Test
       run: |
         echo "Application Test Passed"
-
+   
     - name: Build Docker Image
-      run: |
-        cd app
-        docker build -t devops-app:v1 .
+     run: |
+     cd app
+
+      docker build \
+      -t devops-app:${{ github.sha }} \
+      -t devops-app:latest .
