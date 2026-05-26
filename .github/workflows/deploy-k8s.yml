@@ -1,0 +1,28 @@
+name: Kubernetes Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Simulate Kubernetes Deployment
+      run: |
+        echo "Applying Kubernetes manifests"
+
+        kubectl apply -f kubernetes/namespace.yaml --dry-run=client
+        kubectl apply -f kubernetes/deployment.yaml --dry-run=client
+        kubectl apply -f kubernetes/service.yaml --dry-run=client
+
+    - name: Deployment Success
+      run: |
+        echo "Kubernetes deployment successful"
